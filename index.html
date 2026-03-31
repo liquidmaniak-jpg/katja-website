@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Portfolio</title>
+    <style>
+        /* --- CSS STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #fcfcfc;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #000;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Home Section */
+        #home {
+            height: 100vh; /* Fills the whole screen */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            color: #fff; /* White text reads well on the dark art! */
+        }
+
+        /* Moving Background Effect */
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%; /* Slightly taller for the scroll effect */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('Background_dark.jpg') no-repeat center center/cover;
+            z-index: -1;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        #home h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.7); /* Adds contrast */
+        }
+
+        #home p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+        }
+
+        /* Light button to pop off the dark background */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: #000;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease;
+        }
+
+        #home .btn {
+            background-color: #fff;
+            color: #000;
+        }
+
+        #home .btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .btn:hover {
+            background-color: #333;
+        }
+
+        /* Gallery / My Works */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .art-card {
+            background-color: #fff;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .art-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .art-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .art-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .art-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .art-details {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .about-img {
+            flex: 1;
+            max-width: 400px;
+            height: auto;
+            border: 1px solid #eee;
+        }
+
+        .about-text {
+            flex: 2;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background-color: #fff;
+            border-top: 1px solid #eee;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            nav ul li {
+                margin: 0 1rem;
+            }
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">ARTIST PORTFOLIO</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#works">My Works</a></li>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#contacts">Contacts</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <div class="bg-image" id="parallax-bg"></div> 
+        
+        <h1>Capturing Life on Canvas</h1>
+        <p>Welcome to my online gallery. Explore my latest original paintings.</p>
+        <a href="#works" class="btn">View My Works</a>
+    </section>
+
+    <hr style="border: 0; height: 1px; background: #eee;">
+
+    <section id="works">
+        <h2 class="section-title">My Works</h2>
+        <p style="text-align: center; color: #777; margin-top: -2rem; margin-bottom: 3rem;">(Double-click any artwork to view the full-size original)</p>
+        
+        <div class="gallery-grid">
+            
+            <div class="art-card" ondblclick="openOriginal('file:///C:/Users/yakov/OneDrive/Documenten/Website%20Gemini/images/art1.jpg')">
+                <img src="file:///C:/Users/yakov/OneDrive/Documenten/Website%20Gemini/images/art1.jpg" alt="Painting 1" class="art-img">
+                <div class="art-info">
+                    <div class="art-title">Artwork Title One</div>
+                    <div class="art-details">Oil on Canvas, 24" x 36"</div>
+                </div>
+            </div>
+
+            <div class="art-card" ondblclick="openOriginal('file:///C:/Users/yakov/OneDrive/Documenten/Website%20Gemini/images/art2.jpg')">
+                <img src="file:///C:/Users/yakov/OneDrive/Documenten/Website%20Gemini/images/art2.jpg" alt="Painting 2" class="art-img">
+                <div class="art-info">
+                    <div class="art-title">Artwork Title Two</div>
+                    <div class="art-details">Acrylic, 18" x 24"</div>
+                </div>
+            </div>
+
+            <div class="art-card" ondblclick="openOriginal('file:///C:/Users/yakov/OneDrive/Documenten/Website%20Gemini/images/art3.jpg')">
+                <img src="file:///C:/Users/yakov/OneDrive/Documenten/Website%20Gemini/images/art3.jpg" alt="Painting 3" class="art-img">
+                <div class="art-info">
+                    <div class="art-title">Artwork Title Three</div>
+                    <div class="art-details">Mixed Media, 30" x 40"</div>
+                </div>
+            </div>
+
+            </div>
+    </section>
+
+    <hr style="border: 0; height: 1px; background: #eee;">
+
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <img src="file:///C:/Users/yakov/OneDrive/Documenten/Website%20Gemini/katja.png" alt="Artist Portrait" class="about-img">
+            
+            <div class="about-text">
+                <p>My creative journey began in Russia, where I was born in 1983. In 2013, a new chapter brought me to the beautiful landscapes of the Netherlands—a move that would deeply influence my artistic vision. Driven by a desire to master the timeless techniques of the greats, I pursued my studies at the prestigious <strong>Groningen Klassieke Academie</strong>, where I proudly earned my Master’s degree in 2024.</p>
+                
+                <p>Today, I am honored to be a member of the <strong>Royal Institute of Oil Painters</strong>. While oil portraiture is my deepest passion—capturing the raw emotion and soul of a subject on canvas—my artistic expression doesn't stop at the easel. I am equally fascinated by the tactile world of three-dimensional art, frequently working in clay and wax modeling to bring form to life.</p>
+                
+                <p>For me, art is not just a personal pursuit; it is a gift to be shared. Every Sunday, I open the doors of my studio to teach the next generation of young artists, helping children discover the joy of creating. I also take great pride in organizing masterclasses in my studio, bringing master artists from all around the world to share their techniques with our local community.</p>
+                
+                <p>Whether through the stroke of a brush, the molding of clay, or guiding a student, my goal is always the same: to find and share the beauty in the world around us. Thank you for being here, and I hope you enjoy exploring my work.</p>
+            </div>
+        </div>
+    </section>
+
+    <hr style="border: 0; height: 1px; background: #eee;">
+
+    <section id="contacts">
+        <h2 class="section-title">Contacts</h2>
+        <div class="contact-form">
+            <form action="liquidmaniak@gmail.com" method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email Address" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="6" placeholder="How can I help you?" required></textarea>
+                </div>
+                <button type="submit" class="btn" style="border: none; cursor: pointer;">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Ekaterina Yakovleva. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Parallax scroll effect for Home Background
+        window.addEventListener('scroll', function() {
+            const distance = window.scrollY;
+            const bg = document.getElementById('parallax-bg');
+            // This moves the background at 20% of the scroll speed
+            bg.style.transform = `translateY(${distance * 0.2}px)`;
+        });
+
+        // Function to open the original image file on double click
+        function openOriginal(url) {
+            window.open(url, '_blank');
+        }
+    </script>
+
+</body>
+</html>
