@@ -4,19 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artist Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
-        /* --- CSS STYLES --- */
+       /* --- UPDATED CSS FOR FULL-SITE BACKGROUND --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        body {
-            background-color: #fcfcfc;
-            color: #333;
+       body {
+            color: #fff; /* White text for contrast */
             line-height: 1.6;
+            position: relative;
+            background-color: #111; /* Dark fallback if image takes a second to load */
+            overflow-x: hidden; /* Prevents horizontal scrollbars */
+        }
+
+        /* Full-Page Parallax Background */
+        #full-parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 110%; /* Makes it slightly taller than the page for the movement effect */
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('Background_dark.jpg') no-repeat center top/cover;
+            z-index: -1; /* Puts it behind everything */
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        /* Creative Heading Fonts */
+        h1, .section-title, .logo {
+            font-family: 'Playfair Display', serif !important;
+            font-weight: 600;
+            color: #fff;
         }
 
         /* Navigation */
@@ -25,11 +50,13 @@
             justify-content: space-between;
             align-items: center;
             padding: 2rem 5%;
-            background-color: #fff;
-            border-bottom: 1px solid #eee;
+            /* Semi-transparent dark header so it blends with the art */
+            background-color: rgba(0, 0, 0, 0.5); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(5px); /* Adds a modern frosted-glass effect */
         }
 
         .logo {
@@ -50,13 +77,13 @@
 
         nav ul li a {
             text-decoration: none;
-            color: #555;
+            color: #ccc;
             font-size: 1rem;
             transition: color 0.3s ease;
         }
 
         nav ul li a:hover {
-            color: #000;
+            color: #fff;
         }
 
         /* Sections */
@@ -64,6 +91,7 @@
             padding: 5rem 5%;
             max-width: 1200px;
             margin: 0 auto;
+            background: transparent; /* Makes sections transparent */
         }
 
         .section-title {
@@ -75,37 +103,22 @@
             letter-spacing: 1px;
         }
 
-        /* Home Section */
+      /* Home Section */
         #home {
-            height: 100vh; /* Fills the whole screen */
+            height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            color: #fff; /* White text reads well on the dark art! */
+            color: #fff;
+            background: transparent;
         }
-
-        /* Moving Background Effect */
-        .bg-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 120%; /* Slightly taller for the scroll effect */
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('Background_dark.jpg') no-repeat center center/cover;
-            z-index: -1;
-            transform: translateZ(0);
-            will-change: transform;
-        }
-
         #home h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
             font-weight: 300;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.7); /* Adds contrast */
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
         }
 
         #home p {
@@ -114,48 +127,65 @@
             text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
         }
 
-        /* Light button to pop off the dark background */
         .btn {
             display: inline-block;
             padding: 0.8rem 2rem;
-            background-color: #000;
+            /* Transparent background instead of solid white */
+            background-color: transparent; 
+            /* White text to match the rest of the typography */
             color: #fff;
             text-decoration: none;
             text-transform: uppercase;
             font-size: 0.9rem;
             letter-spacing: 1px;
-            transition: background-color 0.3s ease;
-        }
-
-        #home .btn {
-            background-color: #fff;
-            color: #000;
-        }
-
-        #home .btn:hover {
-            background-color: #e0e0e0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            
+            /* Clean thin white frame */
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            
+            /* Match the font to your other headers */
+            font-family: 'Montserrat', sans-serif;
         }
 
         .btn:hover {
-            background-color: #333;
+            /* On hover, fill the frame with a subtle white glow */
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid #fff;
+            color: #fff;
+        }
+
+        .btn:hover {
+            background-color: #e0e0e0;
         }
 
         /* Gallery / My Works */
+        #works {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            display: grid !important; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important; 
+            gap: 2.5rem; 
+            width: 100%;
+            margin: 0 auto;
         }
 
         .art-card {
-            background-color: #fff;
-            border: 1px solid #eee;
+            background-color: rgba(255, 255, 255, 0.05); /* Slight tint for contrast */
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: transform 0.3s ease;
             cursor: pointer;
+            width: 100%;
         }
 
         .art-card:hover {
             transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .art-img {
@@ -171,13 +201,11 @@
         }
 
         .art-title {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
+            color: #fff;
         }
 
         .art-details {
-            font-size: 0.9rem;
-            color: #777;
+            color: #aaa;
         }
 
         /* About Section */
@@ -191,15 +219,14 @@
             flex: 1;
             max-width: 400px;
             height: auto;
-            border: 1px solid #eee;
-        }
-
-        .about-text {
-            flex: 2;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .about-text p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
             margin-bottom: 1.5rem;
+            color: #ddd;
         }
 
         /* Contact Section */
@@ -217,45 +244,43 @@
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
             text-transform: uppercase;
+            color: #ccc;
         }
 
         .form-group input, .form-group textarea {
             width: 100%;
             padding: 0.8rem;
-            border: 1px solid #ccc;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
             font-size: 1rem;
+        }
+
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: #666;
         }
 
         /* Footer */
         footer {
             text-align: center;
             padding: 3rem;
-            background-color: #fff;
-            border-top: 1px solid #eee;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #777;
             font-size: 0.9rem;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            nav ul li {
-                margin: 0 1rem;
-            }
-            .about-content {
-                flex-direction: column;
-                text-align: center;
-            }
+        hr {
+            border: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1); /* Subtle separators */
         }
     </style>
 </head>
 <body>
-
-    <header>
-        <div class="logo">ARTIST PORTFOLIO</div>
+	<div id="full-parallax-bg"></div>
+	 <header>
+       		 <div class="logo">ARTIST PORTFOLIO</div>
         <nav>
             <ul>
                 <li><a href="#home">Home</a></li>
@@ -268,7 +293,6 @@
 
     <section id="home">
         <div class="bg-image" id="parallax-bg"></div> 
-        
         <h1>Capturing Life on Canvas</h1>
         <p>Welcome to my online gallery. Explore my latest original paintings.</p>
         <a href="#works" class="btn">View My Works</a>
@@ -280,33 +304,7 @@
         <h2 class="section-title">My Works</h2>
         <p style="text-align: center; color: #777; margin-top: -2rem; margin-bottom: 3rem;">(Double-click any artwork to view the full-size original)</p>
         
-        <div class="gallery-grid">
-            
-            <div class="art-card" ondblclick="openOriginal('file:///C:/Users/yakov/OneDrive/Documenten/Website%20Gemini/images/art1.jpg')">
-                <img src="file:///C:/Users/yakov/OneDrive/Documenten/Website%20Gemini/images/art1.jpg" alt="Painting 1" class="art-img">
-                <div class="art-info">
-                    <div class="art-title">Artwork Title One</div>
-                    <div class="art-details">Oil on Canvas, 24" x 36"</div>
-                </div>
-            </div>
-
-            <div class="art-card" ondblclick="openOriginal('file:///C:/Users/yakov/OneDrive/Documenten/Website%20Gemini/images/art2.jpg')">
-                <img src="file:///C:/Users/yakov/OneDrive/Documenten/Website%20Gemini/images/art2.jpg" alt="Painting 2" class="art-img">
-                <div class="art-info">
-                    <div class="art-title">Artwork Title Two</div>
-                    <div class="art-details">Acrylic, 18" x 24"</div>
-                </div>
-            </div>
-
-            <div class="art-card" ondblclick="openOriginal('file:///C:/Users/yakov/OneDrive/Documenten/Website%20Gemini/images/art3.jpg')">
-                <img src="file:///C:/Users/yakov/OneDrive/Documenten/Website%20Gemini/images/art3.jpg" alt="Painting 3" class="art-img">
-                <div class="art-info">
-                    <div class="art-title">Artwork Title Three</div>
-                    <div class="art-details">Mixed Media, 30" x 40"</div>
-                </div>
-            </div>
-
-            </div>
+        <div class="gallery-grid" id="art-gallery"></div>
     </section>
 
     <hr style="border: 0; height: 1px; background: #eee;">
@@ -333,7 +331,7 @@
     <section id="contacts">
         <h2 class="section-title">Contacts</h2>
         <div class="contact-form">
-            <form action="liquidmaniak@gmail.com" method="POST">
+            <form action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" placeholder="Your Name" required>
@@ -356,19 +354,101 @@
     </footer>
 
     <script>
-        // Parallax scroll effect for Home Background
+        // 1. YOUR ARTWORK LIST
+        const myArtworks = [
+            {
+                image: 'images/art1.jpg',
+                title: 'Artwork Title One',
+                details: 'Oil on Canvas, 24" x 36"'
+            },
+            {
+                image: 'images/art2.jpg',
+                title: 'Artwork Title Two',
+                details: 'Acrylic, 18" x 24"'
+            },
+            {
+                image: 'images/art3.jpg',
+                title: 'Artwork Title Three',
+                details: 'Mixed Media, 30" x 40"'
+            },
+            {
+                image: 'images/art4.jpg',
+                title: 'Artwork Title Four',
+                details: 'Oil on Canvas, 20" x 20"'
+            },
+            {
+                image: 'images/art5.jpg',
+                title: 'Artwork Title Five',
+                details: 'Clay Sculpture, 12" Tall'
+            }
+        ];
+
+        const galleryContainer = document.getElementById('art-gallery');
+        
+        function renderGallery(showAll = false) {
+            galleryContainer.innerHTML = '';
+            
+            const paintingsToDisplay = showAll ? myArtworks : myArtworks.slice(0, 3);
+
+            paintingsToDisplay.forEach(art => {
+                const card = document.createElement('div');
+                card.className = 'art-card';
+                card.setAttribute('ondblclick', `openOriginal('${art.image}')`);
+                
+                card.innerHTML = `
+                    <img src="${art.image}" alt="${art.title}" class="art-img">
+                    <div class="art-info">
+                        <div class="art-title">${art.title}</div>
+                        <div class="art-details">${art.details}</div>
+                    </div>
+                `;
+                galleryContainer.appendChild(card);
+            });
+
+            const existingBtn = document.getElementById('view-more-btn');
+            
+            if (showAll && existingBtn) {
+                existingBtn.remove();
+            } 
+            else if (!showAll && myArtworks.length > 3 && !existingBtn) {
+                const btnContainer = document.createElement('div');
+                btnContainer.style.textAlign = 'center';
+                btnContainer.style.marginTop = '3rem';
+                btnContainer.id = 'view-more-btn-container';
+                
+                const btn = document.createElement('button');
+                btn.id = 'view-more-btn';
+                btn.className = 'btn';
+                btn.style.border = 'none';
+                btn.style.cursor = 'pointer';
+                btn.innerText = 'View More Artworks';
+                
+                btn.onclick = function() {
+                    renderGallery(true);
+                };
+                
+                btnContainer.appendChild(btn);
+                galleryContainer.parentNode.insertBefore(btnContainer, galleryContainer.nextSibling);
+            }
+        }
+
+        window.onload = function() {
+            renderGallery(false);
+        };
+
+       // Continuous site-wide Parallax scroll effect
         window.addEventListener('scroll', function() {
             const distance = window.scrollY;
-            const bg = document.getElementById('parallax-bg');
-            // This moves the background at 20% of the scroll speed
-            bg.style.transform = `translateY(${distance * 0.2}px)`;
+            const bg = document.getElementById('full-parallax-bg');
+            if (bg) {
+                // Adjust the 0.15 to make it faster or slower (0.1 is slower, 0.3 is faster)
+                bg.style.transform = `translateY(${distance * 0.15}px)`;
+            }
         });
-
-        // Function to open the original image file on double click
+        // Double click handler
         function openOriginal(url) {
             window.open(url, '_blank');
         }
     </script>
-
 </body>
 </html>
